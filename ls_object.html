@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script type="text/javascript">
+    let S1 = {
+        name: 'Subham Deb',
+        age: 26
+    }
+    let obj_string = JSON.stringify(S1);
+    localStorage.setItem('S1', obj_string)
+    let obj_destring = JSON.parse(localStorage.getItem('S1'))
+    console.log(obj_destring)
+   
+
+</script>
+</html>
