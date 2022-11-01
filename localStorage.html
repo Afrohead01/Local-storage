@@ -1,14 +1,14 @@
 <html>
     <body>
-        <form onsubmit="SaveToLocalStorage(event)">
+        <form onsubmit="SaveToLocalStorage(event)" autocomplete="on">
             <label>Name</label>
-            <input type="text" name="Username" required><br>
+            <input id="name" type="text" name="Username" required><br>
             <label>Email Id</label>
-            <input type="email" name="EmailID" required><br>
+            <input id="email" type="email" name="EmailID" required><br>
             <label>Phone Number</label>
-            <input type="tel" name="PhoneNumber" required><br>
+            <input id="phone" type="tel" name="PhoneNumber" required><br>
             <labe>Address</labe>
-            <input name="Address" required><br>
+            <input id="address" name="Address" required><br>
             <button>Submit</button>
         </form>
         <ul id= "NumberOfUsers"></ul>
@@ -32,11 +32,34 @@
                 localStorage.setItem(obj.Name, JSON.stringify(obj))
                 DisplayOnScreen(obj)
             }
+            window.addEventListener("DOMContentLoaded", () => {
+                const localStorageObj = localStorage;
+                const localstoragekeys  = Object.keys(localStorageObj)
+
+                for(var i =0; i< localstoragekeys.length; i++){
+                    const key = localstoragekeys[i]
+                    const userDetailsString = localStorageObj[key];
+                    const userDetailsObj = JSON.parse(userDetailsString);
+                    DisplayOnScreen(userDetailsObj)
+                }
+            })
             function DisplayOnScreen(User){
                 const parentNode = document.getElementById('NumberOfUsers')
-                const childNode = `<li>Name- ${User.Name}, Email- ${User.EmailId}, PhoneNumber- ${User.PhoneNumber}, Address- ${User.Address}</li>`
+                const childNode = `<li id=${User.Name}>Name- ${User.Name}, Email- ${User.EmailId}, PhoneNumber- ${User.PhoneNumber}, Address- ${User.Address}
+                    <button onclick=deleteUser('${User.Name}')>Delete User</button>
+                    <button onclick=editUser('${User.Name}','${User.EmailId}')>Edit</button></li>`
                 parentNode.innerHTML = parentNode.innerHTML + childNode
             }
+            function editUser(Name,EmailId){
+                document.getElementById('name').value = Name
+                document.getElementById('email').value = EmailId
+                   }
+            function deleteUser(Username){
+                console.log(Username)
+                localStorage.removeItem(Username)
+
+            }
+            
         </script>
 
     </body>
